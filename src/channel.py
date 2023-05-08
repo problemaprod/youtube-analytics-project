@@ -19,7 +19,32 @@ class Channel:
         self.title = dict(self.file)['items'][0]['snippet']['title']
         self.video_count = dict(self.file)['items'][0]['statistics']['videoCount']
         self.url = f"https://www.youtube.com/channel/{dict(self.file)['items'][0]['id']}"
+        self.subscriber_count = self.video_count = dict(self.file)['items'][0]['statistics']['subscriberCount']
 
+    def __str__(self):
+        return f"'{self.title} ({self.url})'"
+
+    def __add__(self, other):
+        return int(self.subscriber_count) + int(other.subscriber_count)
+
+    def __sub__(self, other):
+        return int(self.subscriber_count) - int(other.subscriber_count)
+
+    def __gt__(self, other):
+        return int(self.subscriber_count) > int(other.subscriber_count)
+
+    def __ge__(self, other):
+        return int(self.subscriber_count) >= int(other.subscriber_count)
+
+    def __le__(self, other):
+        return int(self.subscriber_count) < int(other.subscriber_count)
+
+    def __lt__(self, other):
+        return int(self.subscriber_count) <= int(other.subscriber_count)
+
+    def __eq__(self, other):
+        return int(self.subscriber_count) == int(other.subscriber_count)
+    # def
     def print_info(self):
         """Выводит в консоль информацию о канале."""
         self.channel = youtube.channels().list(id=self.__channel_id, part='snippet,statistics').execute()
@@ -41,7 +66,7 @@ class Channel:
             json.dump(self.channel, f, indent=2, ensure_ascii=False)
 
 # two_drots = Channel("UCOIRN19VunfPaW7ZfmOKeoQ")
-# # print(two_drots.print_info())
+# print(two_drots.print_info())
 # # print(two_drots.url)
 # # two_drots.channel_id = 'Новое название'
 # # print(two_drots.channel_id)
