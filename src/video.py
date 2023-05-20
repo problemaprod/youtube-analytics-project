@@ -33,5 +33,5 @@ class PLVideo(Video):
 
 # video1 = Video('d_WcNBGdiwk')
 # print(video1.video_link)
-video2 = PLVideo('BBotskuyw_M', 'PL7Ntiz7eTKwrqmApjln9u4ItzhDLRtPuD')
-print(str(video2.like_count))
+# video2 = PLVideo('BBotskuyw_M', 'PL7Ntiz7eTKwrqmApjln9u4ItzhDLRtPuD')
+# print(str(video2.like_count))
