@@ -1,6 +1,7 @@
 from googleapiclient.discovery import build
 import os
 import json
+from googleapiclient.errors import HttpError
 
 api_key: str = os.getenv('YT_API_KEY')
 
@@ -10,15 +11,22 @@ youtube = build('youtube', 'v3', developerKey=api_key)
 class Video:
     def __init__(self, video_id):
         self.video_id = video_id
-        self.video_response = youtube.videos().list(part='snippet,statistics,contentDetails,topicDetails',
-                                                    id=video_id).execute()
-        self.video_title = self.video_response['items'][0]['snippet']['title']
-        self.view_count = self.video_response['items'][0]['statistics']['viewCount']
-        self.like_count = self.video_response['items'][0]['statistics']['likeCount']
-        self.video_link = f"https://www.youtube.com/watch?v={self.video_id}"
+        try:
+            self.video_response = youtube.videos().list(part='snippet,statistics,contentDetails,topicDetails',
+                                                        id=video_id).execute()
+            self.title = self.video_response['items'][0]['snippet']['title']
+            self.view_count = self.video_response['items'][0]['statistics']['viewCount']
+            self.like_count = self.video_response['items'][0]['statistics']['likeCount']
+            self.video_link = f"https://www.youtube.com/watch?v={self.video_id}"
+        except IndexError:
+            self.video_id = video_id
+            self.title = None
+            self.view_count = None
+            self.like_count = None
+            self.video_link = None
 
     def __str__(self):
-        return self.video_title
+        return self.title
 
 
 class PLVideo(Video):
@@ -29,7 +37,6 @@ class PLVideo(Video):
                                                             part='contentDetails',
                                                             maxResults=50,
                                                             ).execute()
-
 
 # video1 = Video('d_WcNBGdiwk')
 # print(video1.video_link)

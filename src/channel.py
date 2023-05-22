@@ -65,8 +65,8 @@ class Channel:
         with open(file_name, 'w') as f:
             json.dump(self.channel, f, indent=2, ensure_ascii=False)
 
-# two_drots = Channel("UCOIRN19VunfPaW7ZfmOKeoQ")
-# print(two_drots.print_info())
+two_drots = Channel("UCOIRN19VunfPaW7ZfmOKeoQ")
+print(two_drots.print_info())
 # # print(two_drots.url)
 # # two_drots.channel_id = 'Новое название'
 # # print(two_drots.channel_id)

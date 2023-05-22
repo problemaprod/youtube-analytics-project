@@ -66,5 +66,4 @@ class PlayList:
         return show_best_video_url
 
 
-pl = PlayList('PLguYHBi01DWr4bRWc4uaguASmo7lW4GCb')
-print(pl.show_best_video)
+
